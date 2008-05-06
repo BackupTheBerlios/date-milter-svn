@@ -1,0 +1,58 @@
+.TH DATE_MILTER 5 "MAY 2008"
+
+.SH NAME
+date_milter.conf - system wide date_milter configuration file
+
+.SH SYNOPSIS
+.B /etc/date_milter.conf
+
+.SH DESCRIPTION
+.BR date_milter (8)
+reads configuration data from
+.I /etc/date_milter.conf
+(or the file specified with
+.B -c
+on the command line).
+The file contains keyword=argument pairs, one per line. Lines starting with '#'
+and empty lines are interpreted as comments. Arguments may optionally be
+enclosed in double quotes (") in order to represent arguments containing spaces.
+
+The possible keywords and their meanings are as follows (note that keywords
+are case-insensitive and arguments are case-sensitive):
+
+.IP "max_ago (integer)"
+Set the maximum difference from message time up to "now" in hours.
+Mail which are older than <max_ago> hours will be rejected.
+
+Default: 288 (12 days)
+
+.IP "max_ahead (integer)"
+Set the maximum difference from "now" up to message time in hours.
+Mail which are more than <max_ahead> hours in the future will be rejected.
+
+Default: 24 (1 day)
+
+.IP "reject_misformed_header (boolean)"
+If this is set to "true", mail containing non RFC 2822 date header will be
+rejected.
+
+Default: true
+
+.IP "err_header_str (string)"
+Set the message for rejects in case of a misformed header.
+
+Default: "Your date header is misformed"
+
+.IP "err_date_str (string)"
+Set the message for rejects in case of invalid date information.
+If the mail is older than <max_ago> or more than <max_ahead> in the future,
+this message will be sent.
+
+Default: "Fix your system clock and try again"
+
+.SH FILES
+.I /etc/date_milter.conf
+The system wide configuration file.
+
+.SH "SEE ALSO"
+.BR date_milter (8)

@@ -1,0 +1,56 @@
+.TH DATE_MILTER 8 "MAY 2008"
+
+.SH NAME
+date_milter - date header based mail filter (milter)
+
+.SH SYNOPSIS
+.B date_milter -p
+.I socket-addr
+.B [-t
+.I timeout
+.B ] [-c
+.I config-file
+.B ] [-d]
+
+.SH DESCRIPTION
+.B date_milter
+is a libmilter based filter, that can be used for rejecting mails
+containing misformed or incorrect date header.
+
+.SH OPTIONS
+.IP "-p socket-addr"
+Required option that set the socket through which this filter should
+communicate with sendmail, postfix or any other milter compatible mail system.
+
+.I socket-addr
+must reference a unix or IPv4/6 socket using the following syntax:
+
+{unix:|local:}<filename> - use a named pipe.
+
+inet{6}:port{@hostname|@ip-address} - use an IPv4/6 socket.
+.IP "-t timeout"
+Sets the number of seconds date_milter will wait for an MTA communication
+(read or write) before timing out. Zero means no wait,
+.B not
+"wait forever".
+If this option is not set, a default timeout of 7210 seconds is used.
+.IP "-c config-file"
+Use the alternate
+.I config-file
+instead of /etc/date_milter.conf.
+.IP -d
+Enable debugging output to stderr.
+
+.SH FILES
+.I /etc/date_milter.conf
+.RS
+The system wide configuration file. See
+.BR date_milter (5)
+for further details.
+
+.SH BUGS
+The header parser ist not fully RFC 2822 compliant.
+It works for all my mail, but I have to fix that.
+
+.SH "SEE ALSO"
+.BR date_milter (5)
